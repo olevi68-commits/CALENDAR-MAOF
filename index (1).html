@@ -1,0 +1,1115 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>לוח שנה מעוף</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FBFAF6;
+    --surface: #FFFFFF;
+    --surface-alt: #F3F0E7;
+    --ink: #24303D;
+    --ink-soft: #64717E;
+    --ink-faint: #9AA4AE;
+    --line: #E6E1D3;
+    --accent: #2D6FA3;
+    --accent-ink: #1B4A6E;
+    --accent-soft: #E7F1F8;
+    --gold: #B8860B;
+    --gold-soft: #FBF1D9;
+    --danger: #A8453B;
+    --shadow: 0 24px 55px -24px rgba(36,48,61,0.28);
+    --radius-lg: 22px;
+    --radius-md: 13px;
+    --radius-sm: 8px;
+
+    --cat-blue: #2D6FA3;   --cat-blue-soft: #E7F1F8;
+    --cat-orange: #B9662E; --cat-orange-soft: #F7E9DC;
+    --cat-red: #A8453B;    --cat-red-soft: #F5E1DE;
+    --cat-purple: #6E5590; --cat-purple-soft: #ECE6F3;
+    --cat-green: #45785A;  --cat-green-soft: #E1EDE5;
+    --cat-pink: #A65779;   --cat-pink-soft: #F3E3EA;
+    --cat-gold: #96660B;   --cat-gold-soft: #FBF1D9;
+
+    --tag-sun-bg: #E8B84B; --tag-sun-ink: #3B2E05;
+    --tag-mon-bg: #6FA0C9; --tag-mon-ink: #0B2436;
+    --tag-tue-bg: #6FAE84; --tag-tue-ink: #0E2A19;
+    --tag-wed-bg: #C97FA0; --tag-wed-ink: #3A0F22;
+    --tag-thu-bg: #E0C24B; --tag-thu-ink: #3B2E05;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #12161B;
+      --surface: #1A1F26;
+      --surface-alt: #20262E;
+      --ink: #E9E6DE;
+      --ink-soft: #A7AFB9;
+      --ink-faint: #6B7480;
+      --line: #2B313A;
+      --accent: #6EA8D8;
+      --accent-ink: #BFDCF2;
+      --accent-soft: #1E2F3D;
+      --gold: #D9A441;
+      --gold-soft: #362D18;
+      --danger: #D98A82;
+      --shadow: 0 24px 55px -24px rgba(0,0,0,0.65);
+
+      --cat-blue: #6EA8D8;   --cat-blue-soft: #1E2F3D;
+      --cat-orange: #D99B6C; --cat-orange-soft: #3A2B1C;
+      --cat-red: #D98A82;    --cat-red-soft: #3A2220;
+      --cat-purple: #B39FD1; --cat-purple-soft: #2C263A;
+      --cat-green: #8FBBA0;  --cat-green-soft: #1F2E24;
+      --cat-pink: #D79BB6;   --cat-pink-soft: #3A2530;
+      --cat-gold: #D9A441;   --cat-gold-soft: #362D18;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #12161B;
+    --surface: #1A1F26;
+    --surface-alt: #20262E;
+    --ink: #E9E6DE;
+    --ink-soft: #A7AFB9;
+    --ink-faint: #6B7480;
+    --line: #2B313A;
+    --accent: #6EA8D8;
+    --accent-ink: #BFDCF2;
+    --accent-soft: #1E2F3D;
+    --gold: #D9A441;
+    --gold-soft: #362D18;
+    --danger: #D98A82;
+    --shadow: 0 24px 55px -24px rgba(0,0,0,0.65);
+
+    --cat-blue: #6EA8D8;   --cat-blue-soft: #1E2F3D;
+    --cat-orange: #D99B6C; --cat-orange-soft: #3A2B1C;
+    --cat-red: #D98A82;    --cat-red-soft: #3A2220;
+    --cat-purple: #B39FD1; --cat-purple-soft: #2C263A;
+    --cat-green: #8FBBA0;  --cat-green-soft: #1F2E24;
+    --cat-pink: #D79BB6;   --cat-pink-soft: #3A2530;
+    --cat-gold: #D9A441;   --cat-gold-soft: #362D18;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Assistant', 'Segoe UI', system-ui, sans-serif;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.4;
+  }
+  ::selection { background: var(--accent-soft); color: var(--accent-ink); }
+  a { color: inherit; }
+  button { font-family: inherit; cursor: pointer; }
+  button:focus-visible, input:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 2px;
+  }
+  .font-hand { font-family: 'Kalam', cursive; }
+
+  #app { min-height: 100vh; padding: clamp(14px, 3vw, 40px); }
+  .wrap { max-width: 1160px; margin: 0 auto; }
+
+  .shell {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    overflow: visible;
+    position: relative;
+  }
+
+  /* ---------- admin toggle ---------- */
+  .admin-toggle {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface-alt);
+    color: var(--ink-soft);
+    font-size: 13px;
+    font-weight: 600;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .admin-toggle:hover { background: var(--line); }
+  .admin-toggle.on {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .admin-toggle svg { width: 14px; height: 14px; }
+
+  /* ---------- header ---------- */
+  .header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px clamp(16px, 4vw, 34px) 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .header-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  .header-nav-row { display: flex; align-items: center; gap: 12px; }
+  .nav-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 38px; height: 38px; border-radius: 999px; border: 1px solid var(--line);
+    background: var(--surface); color: var(--ink-soft);
+    transition: background .15s, color .15s;
+  }
+  .nav-btn:hover { background: var(--accent-soft); color: var(--accent-ink); }
+  .nav-btn svg { width: 20px; height: 20px; }
+  .header-title-box { text-align: center; min-width: 180px; }
+  .header-sub { margin: 0; font-size: 14px; color: var(--ink-soft); font-weight: 600; }
+  .header-title {
+    margin: 0;
+    font-size: clamp(30px, 4vw, 42px);
+    letter-spacing: .3px;
+    text-wrap: balance;
+  }
+  .view-toggle {
+    display: flex; background: var(--surface-alt); border-radius: 10px; padding: 3px; gap: 2px;
+  }
+  .view-toggle button {
+    border: none; background: transparent; color: var(--ink-soft);
+    padding: 7px 20px; border-radius: 8px; font-size: 13px; font-weight: 700;
+    transition: background .15s, color .15s;
+  }
+  .view-toggle button.active { background: var(--surface); color: var(--accent-ink); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+
+  .quote-banner {
+    flex: 1 1 260px;
+    text-align: center;
+    padding: 0 8px;
+    position: relative;
+  }
+  .quote-text {
+    margin: 0; font-size: 18px; color: var(--ink-soft);
+    display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;
+  }
+  .quote-author { margin: 4px 0 0; font-size: 13px; font-weight: 700; color: var(--ink-faint); }
+  .quote-edit-btn {
+    border: none; background: transparent; color: var(--accent); opacity: 0; transition: opacity .15s;
+    padding: 4px; border-radius: 999px; display: inline-flex;
+  }
+  .quote-banner:hover .quote-edit-btn, .quote-edit-btn:focus-visible { opacity: 1; }
+  .quote-edit-btn svg { width: 15px; height: 15px; }
+
+  .brand { text-align: center; }
+  .brand-name { font-family: 'Kalam', cursive; font-size: 30px; color: var(--accent-ink); line-height: 1; }
+  .brand-sub { margin-top: 6px; font-size: 12px; color: var(--ink-faint); font-weight: 600; line-height: 1.5; }
+
+  /* ---------- weekday tags ---------- */
+  .weekday-row {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+    padding: 20px clamp(16px, 4vw, 34px) 0;
+  }
+  .weekday-tag {
+    text-align: center; padding: 10px 4px; border-radius: 10px 10px 4px 4px;
+    font-weight: 800; font-size: 15px; box-shadow: 0 3px 0 rgba(0,0,0,.08);
+  }
+  .weekday-tag:nth-child(1) { background: var(--tag-sun-bg); color: var(--tag-sun-ink); transform: rotate(-1deg); }
+  .weekday-tag:nth-child(2) { background: var(--tag-mon-bg); color: var(--tag-mon-ink); transform: rotate(.8deg); }
+  .weekday-tag:nth-child(3) { background: var(--tag-tue-bg); color: var(--tag-tue-ink); }
+  .weekday-tag:nth-child(4) { background: var(--tag-wed-bg); color: var(--tag-wed-ink); transform: rotate(-.6deg); }
+  .weekday-tag:nth-child(5) { background: var(--tag-thu-bg); color: var(--tag-thu-ink); transform: rotate(.6deg); }
+
+  /* ---------- month grid ---------- */
+  .grid {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    border: 1px solid var(--line); margin: 14px clamp(16px, 4vw, 34px) 26px;
+    border-radius: var(--radius-md); overflow: hidden;
+  }
+  .cell {
+    background: var(--surface); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    min-height: 128px; padding: 10px; position: relative; transition: background .15s;
+  }
+  .cell:nth-child(5n) { border-right: none; }
+  .cell.empty { background: var(--surface-alt); }
+  .cell.clickable { cursor: pointer; }
+  .cell.clickable:hover { background: var(--accent-soft); }
+  .cell.today { box-shadow: inset 0 0 0 2px var(--accent); background: var(--accent-soft); z-index: 1; }
+  .cell-top { display: flex; justify-content: space-between; align-items: baseline; }
+  .cell-day { font-size: 20px; font-weight: 800; color: var(--ink); }
+  .cell.today .cell-day { color: var(--accent-ink); }
+  .cell-hebrew { font-size: 12.5px; color: var(--ink-faint); }
+  .cell-events { margin-top: 10px; display: flex; flex-direction: column; gap: 4px; }
+  .cell-edit-hint {
+    position: absolute; bottom: 8px; left: 8px; opacity: 0; color: var(--ink-faint); transition: opacity .15s;
+  }
+  .cell.clickable:hover .cell-edit-hint { opacity: 1; }
+  .cell-edit-hint svg { width: 14px; height: 14px; }
+
+  .pill {
+    position: relative;
+    display: flex; align-items: flex-start; gap: 5px;
+    font-size: 12px; font-weight: 700; line-height: 1.25;
+    padding: 4px 7px; border-radius: 7px;
+  }
+  .pill svg { width: 11px; height: 11px; flex: none; margin-top: 2px; }
+  .pill-dot { width: 5px; height: 5px; border-radius: 999px; background: currentColor; opacity: .55; flex: none; margin-right: auto; margin-top: 5px; }
+  .pill[data-color="blue"]   { background: var(--cat-blue-soft);   color: var(--cat-blue); }
+  .pill[data-color="orange"] { background: var(--cat-orange-soft); color: var(--cat-orange); }
+  .pill[data-color="red"]    { background: var(--cat-red-soft);    color: var(--cat-red); }
+  .pill[data-color="purple"] { background: var(--cat-purple-soft); color: var(--cat-purple); }
+  .pill[data-color="green"]  { background: var(--cat-green-soft);  color: var(--cat-green); }
+  .pill[data-color="pink"]   { background: var(--cat-pink-soft);   color: var(--cat-pink); }
+  .pill[data-color="gold"]   { background: var(--cat-gold-soft);   color: var(--cat-gold); box-shadow: inset 0 0 0 1px rgba(150,102,11,.25); }
+
+  .tooltip {
+    position: absolute; bottom: calc(100% + 8px); right: 0; width: 230px;
+    background: var(--ink); color: var(--paper);
+    font-weight: 400; font-size: 12px; line-height: 1.6;
+    padding: 10px 12px; border-radius: 10px; box-shadow: var(--shadow);
+    visibility: hidden; opacity: 0; transition: opacity .15s; pointer-events: none; z-index: 30;
+    white-space: pre-line;
+  }
+  .pill:hover .tooltip { visibility: visible; opacity: 1; }
+
+  /* ---------- year view ---------- */
+  .year-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px;
+    padding: 22px clamp(16px, 4vw, 34px) 30px;
+  }
+  .month-card {
+    border: 1px solid var(--line); border-radius: var(--radius-md); padding: 16px;
+    background: var(--surface); cursor: pointer; transition: box-shadow .15s, border-color .15s;
+  }
+  .month-card:hover { border-color: var(--accent); box-shadow: 0 8px 22px -14px rgba(0,0,0,.3); }
+  .month-card-title { font-family: 'Kalam', cursive; font-size: 21px; text-align: center; margin: 0; color: var(--ink); }
+  .month-card-range { text-align: center; font-size: 11px; color: var(--ink-faint); margin: 2px 0 12px; }
+  .mini-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; text-align: center; }
+  .mini-label { font-size: 9.5px; color: var(--ink-faint); font-weight: 800; padding-bottom: 3px; }
+  .mini-day { font-size: 11px; padding: 4px 0; border-radius: 4px; color: var(--ink-soft); position: relative; }
+  .mini-day.blank { visibility: hidden; }
+  .mini-day.has-events { background: var(--accent-soft); color: var(--accent-ink); font-weight: 800; }
+  .mini-day.today { background: var(--accent); color: #fff; font-weight: 800; }
+
+  /* ---------- modal ---------- */
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(20,24,29,.5); backdrop-filter: blur(2px);
+    display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 100;
+    animation: fade .15s ease-out;
+  }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes rise { from { transform: scale(.96) translateY(6px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+  .modal {
+    background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow);
+    width: 100%; max-width: 460px; max-height: 88vh; overflow-y: auto; animation: rise .18s ease-out;
+    border: 1px solid var(--line);
+  }
+  .modal-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 16px 20px; border-bottom: 1px solid var(--line);
+    background: var(--surface-alt); position: sticky; top: 0; z-index: 2;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+  .modal-head h3 { margin: 0; font-size: 18px; }
+  .icon-btn { background: transparent; border: none; color: var(--ink-faint); padding: 4px; border-radius: 8px; display: inline-flex; }
+  .icon-btn:hover { color: var(--ink); background: var(--line); }
+  .icon-btn svg { width: 20px; height: 20px; }
+  .modal-body { padding: 20px; }
+  .modal-foot { padding: 14px 20px; text-align: center; border-top: 1px solid var(--line); }
+  .link-btn { background: none; border: none; color: var(--accent); font-weight: 700; font-size: 13px; }
+  .link-btn:hover { text-decoration: underline; }
+
+  label.field-label { display: block; font-size: 13px; font-weight: 700; color: var(--ink-soft); margin-bottom: 6px; }
+  input[type="text"], input[type="password"], textarea {
+    width: 100%; border: 1px solid var(--line); border-radius: var(--radius-sm);
+    padding: 9px 11px; font-size: 14px; background: var(--surface); color: var(--ink);
+    font-family: inherit;
+  }
+  textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
+  input[type="text"]:focus, input[type="password"]:focus, textarea:focus { border-color: var(--accent); }
+  .error-text { color: var(--danger); font-size: 12px; margin: 6px 0 0; }
+  .field { margin-bottom: 14px; }
+
+  .swatches { display: flex; gap: 8px; flex-wrap: wrap; }
+  .swatch { width: 24px; height: 24px; border-radius: 999px; border: 2px solid transparent; padding: 0; }
+  .swatch.selected { border-color: var(--ink); transform: scale(1.12); }
+
+  .row-between { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .online-check { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--ink-soft); font-weight: 600; }
+  .online-check input { width: 16px; height: 16px; }
+  .online-check svg { width: 15px; height: 15px; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+    border: 1px solid transparent; border-radius: var(--radius-sm); padding: 10px 16px;
+    font-size: 14px; font-weight: 700; width: 100%; transition: background .15s, opacity .15s;
+  }
+  .btn svg { width: 17px; height: 17px; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { opacity: .92; }
+  .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+  .btn-ghost { background: var(--surface-alt); color: var(--ink); border-color: var(--line); }
+  .btn-ghost:hover { background: var(--line); }
+
+  .existing-title { font-size: 11px; font-weight: 800; color: var(--ink-faint); text-transform: uppercase; letter-spacing: .5px; margin: 22px 0 10px; }
+  .event-row { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 10px 12px; margin-bottom: 8px; background: var(--surface-alt); }
+  .event-row-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .event-row-title { display: flex; align-items: center; gap: 7px; min-width: 0; }
+  .event-row-title .dot { width: 10px; height: 10px; border-radius: 999px; flex: none; }
+  .event-row-title span.txt { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .event-row-actions { display: flex; gap: 2px; flex: none; }
+  .event-row-actions button { background: none; border: none; padding: 5px; border-radius: 7px; }
+  .event-row-actions button:hover { background: var(--line); }
+  .event-row-actions svg { width: 16px; height: 16px; }
+  .event-row-desc { margin: 8px 0 0; padding-right: 10px; border-right: 2px solid var(--line); font-size: 12.5px; color: var(--ink-soft); white-space: pre-line; line-height: 1.6; }
+  .empty-note { text-align: center; color: var(--ink-faint); font-size: 13px; font-style: italic; padding: 18px 0; }
+
+  .edit-swatches { display: flex; gap: 6px; justify-content: center; margin: 8px 0; }
+  .edit-swatch { width: 20px; height: 20px; border-radius: 999px; border: 2px solid transparent; padding: 0; }
+  .edit-swatch.selected { border-color: var(--ink); transform: scale(1.12); }
+  .edit-actions { display: flex; justify-content: flex-end; gap: 14px; margin-top: 8px; }
+  .edit-actions button { background: none; border: none; font-size: 12.5px; font-weight: 700; }
+  .edit-actions .cancel { color: var(--ink-faint); }
+  .edit-actions .save { color: var(--accent); }
+
+  .toast {
+    position: fixed; bottom: 22px; right: 50%; transform: translateX(50%);
+    background: var(--ink); color: var(--paper); padding: 11px 18px; border-radius: 999px;
+    font-size: 13px; font-weight: 600; box-shadow: var(--shadow); z-index: 200; max-width: 90vw;
+    text-align: center;
+  }
+  .toast.warn { background: var(--danger); }
+
+  @media (max-width: 720px) {
+    .header { flex-direction: column; }
+    .header-nav { order: 1; width: 100%; }
+    .view-toggle { width: 100%; }
+    .view-toggle button { flex: 1; }
+    .quote-banner { order: 3; }
+    .brand { order: 2; }
+    .weekday-row { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+    .weekday-tag { font-size: 11px; padding: 8px 2px; }
+    .cell { min-height: 92px; padding: 6px; }
+    .cell-day { font-size: 15px; }
+    .cell-hebrew { font-size: 10px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: .001s !important; transition-duration: .001s !important; }
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script id="state-data" type="application/json">{"events":{"2026-0-1":[{"id":"e1","title":"ראש השנה האזרחית (נוצרי)","description":"","color":"gold","isOnline":false},{"id":"e2","title":"מפגש האוריינטציה","description":"הכרות עם הארגון והצוותים, חלוקת ציוד ראשוני.","color":"blue","isOnline":false}],"2026-0-6":[{"id":"e3","title":"מפגש מנהלים","description":"","color":"blue","isOnline":false}],"2026-0-7":[{"id":"e4","title":"מאיצים דיגיטליים 4","description":"","color":"orange","isOnline":true},{"id":"e5","title":"נאות סגני מנהלי מדור AI","description":"","color":"purple","isOnline":false}],"2026-0-11":[{"id":"e6","title":"משוב מפגש מקוון לכלל","description":"","color":"blue","isOnline":true}],"2026-0-13":[{"id":"e7","title":"נאות סגני מנהלי מדור AI","description":"","color":"purple","isOnline":false}],"2026-0-14":[{"id":"e8","title":"מאיצים דיגיטליים 4","description":"","color":"orange","isOnline":true}],"2026-0-19":[{"id":"e9","title":"הערכה ומשוב למנהלים","description":"","color":"blue","isOnline":true}],"2026-0-20":[{"id":"e10","title":"נאות סגני מנהלי מדור AI","description":"","color":"purple","isOnline":false}],"2026-0-26":[{"id":"e11","title":"תוכנית מנוף לפיתוח","description":"","color":"blue","isOnline":false},{"id":"e12","title":"נאות סגני מנהלי מדור AI","description":"","color":"purple","isOnline":false},{"id":"e13","title":"יום עיון ועדות שחרורים","description":"","color":"orange","isOnline":false}],"2026-1-2":[{"id":"e14","title":"ט\"ו בשבט","description":"","color":"gold","isOnline":false}],"2026-1-5":[{"id":"e15","title":"מסך טיפול בהגשות","description":"","color":"blue","isOnline":true}],"2026-1-8":[{"id":"e16","title":"מסך טיפול בהגשות","description":"","color":"blue","isOnline":true},{"id":"e17","title":"תפעול אולם דיונים","description":"","color":"orange","isOnline":false}],"2026-1-9":[{"id":"e18","title":"עורכים ועדות בוחנים","description":"","color":"blue","isOnline":false},{"id":"e19","title":"מסך טיפול בהגשות","description":"","color":"blue","isOnline":true},{"id":"e20","title":"מעגל מנהלים","description":"","color":"red","isOnline":false}],"2026-1-11":[{"id":"e21","title":"תפעול אולם דיונים","description":"","color":"orange","isOnline":false},{"id":"e22","title":"מסך טיפול בהגשות","description":"","color":"blue","isOnline":true}],"2026-1-12":[{"id":"e23","title":"מסך טיפול בהגשות","description":"","color":"blue","isOnline":true}],"2026-1-15":[{"id":"e24","title":"תפעול אולם דיונים","description":"","color":"orange","isOnline":false}],"2026-1-16":[{"id":"e25","title":"מסך טיפול בהגשות","description":"","color":"blue","isOnline":true}],"2026-1-17":[{"id":"e26","title":"מסך טיפול בהגשות","description":"","color":"blue","isOnline":true},{"id":"e27","title":"תפעול אולם דיונים","description":"","color":"orange","isOnline":false}],"2026-1-18":[{"id":"e28","title":"תחילת הרמדאן (מוסלמי)","description":"","color":"gold","isOnline":false},{"id":"e29","title":"תפעול אולם דיונים","description":"","color":"orange","isOnline":false},{"id":"e30","title":"מסך טיפול בהגשות","description":"","color":"blue","isOnline":true}],"2026-1-19":[{"id":"e31","title":"תפעול אולם דיונים","description":"","color":"orange","isOnline":false},{"id":"e32","title":"מסך טיפול בהגשות","description":"","color":"blue","isOnline":true},{"id":"e33","title":"מעגל מנהלים","description":"","color":"red","isOnline":false}],"2026-1-23":[{"id":"e34","title":"מעגל מנהלים","description":"","color":"red","isOnline":false}],"2026-1-25":[{"id":"e35","title":"מעגל מנהלים","description":"","color":"red","isOnline":false}],"2026-1-26":[{"id":"e36","title":"תפעול אולם דיונים","description":"","color":"orange","isOnline":false},{"id":"e37","title":"מסך טיפול בהגשות","description":"","color":"blue","isOnline":true}],"2026-2-1":[{"id":"e38","title":"מעגל מנהלים","description":"","color":"red","isOnline":false}],"2026-2-3":[{"id":"e39","title":"פורים","description":"","color":"gold","isOnline":false}],"2026-2-4":[{"id":"e40","title":"שושן פורים","description":"","color":"gold","isOnline":false}],"2026-2-9":[{"id":"e41","title":"מעגל מנהלים","description":"","color":"red","isOnline":false}],"2026-2-11":[{"id":"e42","title":"מעגל מנהלים","description":"","color":"red","isOnline":false}],"2026-2-19":[{"id":"e43","title":"מעגל מנהלים","description":"","color":"red","isOnline":false}],"2026-2-20":[{"id":"e44","title":"עיד אל-פיטר (מוסלמי)","description":"","color":"gold","isOnline":false}],"2026-2-25":[{"id":"e45","title":"מעגל מנהלים","description":"","color":"red","isOnline":false}],"2026-3-1":[{"id":"e46","title":"ערב פסח","description":"","color":"gold","isOnline":false}],"2026-3-2":[{"id":"e47","title":"פסח (חג)","description":"","color":"gold","isOnline":false}],"2026-3-3":[{"id":"e48","title":"יום שישי הטוב (נוצרי)","description":"","color":"gold","isOnline":false}],"2026-3-5":[{"id":"e49","title":"חג הפסחא (נוצרי)","description":"","color":"gold","isOnline":false}],"2026-3-8":[{"id":"e50","title":"שביעי של פסח","description":"","color":"gold","isOnline":false}],"2026-3-14":[{"id":"e51","title":"יום השואה","description":"","color":"gold","isOnline":false}],"2026-3-15":[{"id":"e52","title":"מעגל מנהלים","description":"","color":"red","isOnline":false},{"id":"e53","title":"תוכנית ממריאים","description":"","color":"green","isOnline":false}],"2026-3-16":[{"id":"e54","title":"תוכנית ממריאים","description":"","color":"green","isOnline":false}],"2026-3-20":[{"id":"e55","title":"מעגל מנהלים","description":"","color":"red","isOnline":false}],"2026-3-21":[{"id":"e56","title":"יום הזיכרון","description":"","color":"gold","isOnline":false}],"2026-3-22":[{"id":"e57","title":"יום העצמאות","description":"","color":"gold","isOnline":false}],"2026-3-28":[{"id":"e58","title":"מעגל מנהלים","description":"","color":"red","isOnline":false}],"2026-3-29":[{"id":"e59","title":"מעגל מנהלים","description":"","color":"red","isOnline":false}],"2026-4-5":[{"id":"e60","title":"ל\"ג בעומר","description":"","color":"gold","isOnline":false}],"2026-4-22":[{"id":"e61","title":"שבועות","description":"","color":"gold","isOnline":false}],"2026-4-27":[{"id":"e62","title":"עיד אל-אדחא (מוסלמי)","description":"","color":"gold","isOnline":false}],"2026-5-16":[{"id":"e63","title":"ראש השנה ההיג'רית (מוסלמי)","description":"","color":"gold","isOnline":false}],"2026-6-23":[{"id":"e64","title":"צום ט' באב","description":"","color":"gold","isOnline":false}],"2026-7-25":[{"id":"e65","title":"יום הולדת הנביא (מוסלמי)","description":"","color":"gold","isOnline":false}],"2026-8-12":[{"id":"e66","title":"ראש השנה","description":"","color":"gold","isOnline":false}],"2026-8-13":[{"id":"e67","title":"ראש השנה (ב)","description":"","color":"gold","isOnline":false}],"2026-8-21":[{"id":"e68","title":"יום כיפור","description":"","color":"gold","isOnline":false}],"2026-8-26":[{"id":"e69","title":"סוכות","description":"","color":"gold","isOnline":false}],"2026-9-3":[{"id":"e70","title":"שמחת תורה","description":"","color":"gold","isOnline":false}],"2026-11-5":[{"id":"e71","title":"נר ראשון של חנוכה","description":"","color":"gold","isOnline":false}],"2026-11-25":[{"id":"e72","title":"חג המולד (נוצרי)","description":"","color":"gold","isOnline":false}]},"quotes":[{"text":"מנהיגות היא היכולת לתרגם חזון למציאות.","author":"וורן בניס"},{"text":"הדרך הטובה ביותר לחזות את העתיד היא ליצור אותו.","author":"פיטר דרוקר"},{"text":"מנהיגות ולמידה הם בלתי נפרדים זה מזה.","author":"ג'ון פ. קנדי"},{"text":"תפקידו של מנהיג הוא לייצר מנהיגים נוספים, לא מונהגים נוספים.","author":"ראלף ניידר"},{"text":"הכשרון מנצח משחקים, אך עבודת צוות ואינטליגנציה לוקחות אליפות.","author":"מייקל ג'ורדן"},{"text":"ניהול הוא לעשות את הדברים נכון; מנהיגות היא לעשות את הדברים הנכונים.","author":"פיטר דרוקר"},{"text":"אתה לא בונה עסק. אתה בונה אנשים, ואנשים בונים את העסק.","author":"זיג זיגלר"},{"text":"למד מאתמול, חיה את היום, קווה למחר.","author":"אלברט איינשטיין"},{"text":"השקעה בידע משלמת את הריבית הטובה ביותר.","author":"בנג'מין פרנקלין"},{"text":"חדשנות מבדילה בין מנהיג למונהג.","author":"סטיב ג'ובס"},{"text":"מנהיג הוא אחד שיודע את הדרך, הולך בדרך ומראה את הדרך.","author":"ג'ון מקסוול"},{"text":"המעשה האמיץ ביותר הוא עדיין לחשוב בשביל עצמך. בקול רם.","author":"קוקו שאנל"}]}</script>
+<script id="app-logic">
+(function () {
+  "use strict";
+
+  /* ================= constants & data helpers ================= */
+
+  var MONTH_NAMES = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"];
+  var WEEKDAY_LABELS = ["א'", "ב'", "ג'", "ד'", "ה'"];
+  var ADMIN_PASSWORD = "MAOF";
+
+  var COLORS = [
+    { name: "blue", label: "כחול" },
+    { name: "orange", label: "כתום" },
+    { name: "red", label: "אדום" },
+    { name: "purple", label: "סגול" },
+    { name: "green", label: "ירוק" },
+    { name: "pink", label: "ורוד" },
+    { name: "gold", label: "זהב (חג)" }
+  ];
+
+  var HEBREW_DATES_MAP = {
+    "1-2026": { startDay: 11, startMonth: "טבת", splitDay: 20, nextMonth: "שבט" },
+    "2-2026": { startDay: 13, startMonth: "שבט", splitDay: 18, nextMonth: "אדר" },
+    "3-2026": { startDay: 11, startMonth: "אדר", splitDay: 19, nextMonth: "ניסן" },
+    "4-2026": { startDay: 13, startMonth: "ניסן", splitDay: 18, nextMonth: "אייר" },
+    "5-2026": { startDay: 13, startMonth: "אייר", splitDay: 18, nextMonth: "סיוון" },
+    "6-2026": { startDay: 14, startMonth: "סיוון", splitDay: 17, nextMonth: "תמוז" },
+    "7-2026": { startDay: 15, startMonth: "תמוז", splitDay: 16, nextMonth: "אב" },
+    "8-2026": { startDay: 17, startMonth: "אב", splitDay: 15, nextMonth: "אלול" },
+    "9-2026": { startDay: 18, startMonth: "אלול", splitDay: 12, nextMonth: "תשרי" },
+    "10-2026": { startDay: 20, startMonth: "תשרי", splitDay: 12, nextMonth: "חשוון" },
+    "11-2026": { startDay: 21, startMonth: "חשוון", splitDay: 11, nextMonth: "כסלו" },
+    "12-2026": { startDay: 21, startMonth: "כסלו", splitDay: 11, nextMonth: "טבת" }
+  };
+
+  var HEBREW_MONTH_RANGES = [
+    'טבת-שבט תשפ"ו', 'שבט-אדר תשפ"ו', 'אדר-ניסן תשפ"ו', 'ניסן-אייר תשפ"ו',
+    'אייר-סיוון תשפ"ו', 'סיוון-תמוז תשפ"ו', 'תמוז-אב תשפ"ו', 'אב-אלול תשפ"ו',
+    'אלול-תשרי תשפ"ז', 'תשרי-חשוון תשפ"ז', 'חשוון-כסלו תשפ"ז', 'כסלו-טבת תשפ"ז'
+  ];
+
+  function gematria(num) {
+    if (num === 15) return 'ט"ו';
+    if (num === 16) return 'ט"ז';
+    var letters = [
+      { val: 400, ch: 'ת' }, { val: 300, ch: 'ש' }, { val: 200, ch: 'ר' }, { val: 100, ch: 'ק' },
+      { val: 90, ch: 'צ' }, { val: 80, ch: 'פ' }, { val: 70, ch: 'ע' }, { val: 60, ch: 'ס' },
+      { val: 50, ch: 'נ' }, { val: 40, ch: 'מ' }, { val: 30, ch: 'ל' }, { val: 20, ch: 'כ' },
+      { val: 10, ch: 'י' }, { val: 9, ch: 'ט' }, { val: 8, ch: 'ח' }, { val: 7, ch: 'ז' },
+      { val: 6, ch: 'ו' }, { val: 5, ch: 'ה' }, { val: 4, ch: 'ד' }, { val: 3, ch: 'ג' },
+      { val: 2, ch: 'ב' }, { val: 1, ch: 'א' }
+    ];
+    var str = '';
+    for (var i = 0; i < letters.length; i++) {
+      while (num >= letters[i].val) { str += letters[i].ch; num -= letters[i].val; }
+    }
+    return str.length > 1 ? str.slice(0, -1) + '"' + str.slice(-1) : str + "'";
+  }
+
+  function getHebrewDate(day, month, year) {
+    var config = HEBREW_DATES_MAP[(month + 1) + "-" + year];
+    if (!config) return "";
+    var hDay, hMonth;
+    if (day >= config.splitDay) {
+      hDay = day - config.splitDay + 1;
+      hMonth = config.nextMonth;
+    } else {
+      hDay = config.startDay + (day - 1);
+      if (hDay > 30) hDay -= 30;
+      hMonth = config.startMonth;
+    }
+    return gematria(hDay) + " " + ((day === 1 || day === config.splitDay) ? hMonth : "");
+  }
+
+  function getDaysInMonth(year, month) { return new Date(year, month + 1, 0).getDate(); }
+  function pad2(n) { return n < 10 ? "0" + n : "" + n; }
+  function escapeHtml(str) {
+    return String(str == null ? "" : str).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function uid() { return "e" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+
+  /* ================= icons ================= */
+  var ICONS = {
+    chevronRight: '<polyline points="9 18 15 12 9 6"/>',
+    chevronLeft: '<polyline points="15 18 9 12 15 6"/>',
+    plus: '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',
+    x: '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
+    trash: '<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/>',
+    edit: '<path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>',
+    video: '<polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>',
+    lock: '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+    unlock: '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/>',
+    save: '<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>'
+  };
+  function icon(name, size) {
+    size = size || 18;
+    return '<svg viewBox="0 0 24 24" width="' + size + '" height="' + size + '" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + ICONS[name] + '</svg>';
+  }
+
+  /* ================= state ================= */
+
+  var state = JSON.parse(document.getElementById("state-data").textContent);
+
+  var ui = {
+    currentDate: new Date(2026, 7, 1),
+    viewMode: "month",
+    isAdmin: false,
+    dayModal: null,       // { dateKey, day }
+    editingEventId: null,
+    editTitle: "", editDesc: "", editColor: "blue",
+    newTitle: "", newDesc: "", newColor: "blue", newOnline: false,
+    quoteModal: false, quoteDraft: null,
+    loginOpen: false, loginError: "",
+    saving: false
+  };
+
+  try {
+    if (sessionStorage.getItem("maof_admin") === "1") ui.isAdmin = true;
+  } catch (e) {}
+
+  try {
+    var snap = sessionStorage.getItem("maof_ui_snapshot");
+    if (snap) {
+      sessionStorage.removeItem("maof_ui_snapshot");
+      var parsed = JSON.parse(snap);
+      if (parsed.currentDate) ui.currentDate = new Date(parsed.currentDate);
+      if (parsed.viewMode) ui.viewMode = parsed.viewMode;
+      if (parsed.dayModal) ui.dayModal = parsed.dayModal;
+      if (typeof parsed.isAdmin === "boolean") ui.isAdmin = parsed.isAdmin;
+    }
+  } catch (e) {}
+
+  function snapshotUi() {
+    try {
+      sessionStorage.setItem("maof_ui_snapshot", JSON.stringify({
+        currentDate: ui.currentDate.toISOString(),
+        viewMode: ui.viewMode,
+        dayModal: ui.dayModal,
+        isAdmin: ui.isAdmin
+      }));
+    } catch (e) {}
+  }
+
+  /* ================= persistence via artifact capability ================= */
+
+  var artifactNS = null;
+  var artifactReady = false;
+  if (window.claude && typeof window.claude.use === "function") {
+    window.claude.use("artifact").then(function (ns) {
+      artifactNS = ns; artifactReady = true;
+    }).catch(function () { artifactReady = true; });
+  } else {
+    artifactReady = true;
+  }
+
+  function buildFullDocument() {
+    var headHtml = document.head.innerHTML;
+    var logicHtml = document.getElementById("app-logic").outerHTML;
+    var json = JSON.stringify(state).replace(/</g, "\\u003c");
+    return "<!doctype html>\n<html lang=\"he\" dir=\"rtl\">\n<head>\n" + headHtml + "\n</head>\n<body>\n" +
+      "<div id=\"app\"></div>\n" +
+      "<script id=\"state-data\" type=\"application/json\">" + json + "<\/script>\n" +
+      logicHtml + "\n</body>\n</html>";
+  }
+
+  var toastTimer = null;
+  function showToast(msg, warn) {
+    var existing = document.querySelector(".toast");
+    if (existing) existing.remove();
+    var t = document.createElement("div");
+    t.className = "toast" + (warn ? " warn" : "");
+    t.textContent = msg;
+    document.body.appendChild(t);
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.remove(); }, 3200);
+  }
+
+  // Applies a mutation to `state`, tries to persist it, and re-renders.
+  // mutate() returns nothing but changes `state` in place.
+  // revert() restores state if persistence is rejected outright.
+  function commit(mutate, revert, closeModalOnSuccess) {
+    mutate();
+    render();
+
+    if (!window.claude || typeof window.claude.use !== "function") {
+      showToast("תצוגה זו אינה תומכת בשמירה — השינוי מוצג רק כאן", true);
+      return;
+    }
+
+    snapshotUi();
+
+    window.claude.use("artifact").then(function (ns) {
+      if (!ns) {
+        try { sessionStorage.removeItem("maof_ui_snapshot"); } catch (e) {}
+        showToast("שמירה אינה זמינה בתצוגה זו", true);
+        return;
+      }
+      return ns.publish(buildFullDocument()).then(function () {
+        // page reloads automatically on success
+      }, function (err) {
+        try { sessionStorage.removeItem("maof_ui_snapshot"); } catch (e) {}
+        var code = err && err.code;
+        if (code === "conflict") {
+          // another view is already reloading everyone to the winner
+          return;
+        }
+        if (code === "not_writer" || code === "not_granted" || code === "consent_required") {
+          if (revert) revert();
+          render();
+          showToast("אין לך הרשאת עריכה בגרסה הפומבית של לוח זה", true);
+          return;
+        }
+        if (revert) revert();
+        render();
+        showToast("השמירה נכשלה: " + (err && err.message ? err.message : "שגיאה לא צפויה"), true);
+      });
+    });
+  }
+
+  /* ================= admin / login ================= */
+
+  function toggleAdmin() {
+    if (ui.isAdmin) {
+      ui.isAdmin = false;
+      try { sessionStorage.removeItem("maof_admin"); } catch (e) {}
+      render();
+    } else {
+      ui.loginOpen = true;
+      ui.loginError = "";
+      render();
+    }
+  }
+
+  function submitLogin(password) {
+    if (password === ADMIN_PASSWORD) {
+      ui.isAdmin = true;
+      ui.loginOpen = false;
+      ui.loginError = "";
+      try { sessionStorage.setItem("maof_admin", "1"); } catch (e) {}
+    } else {
+      ui.loginError = "סיסמה שגויה";
+    }
+    render();
+  }
+
+  /* ================= navigation ================= */
+
+  function goPrev() {
+    if (ui.viewMode === "year") ui.currentDate = new Date(ui.currentDate.getFullYear() - 1, 0, 1);
+    else ui.currentDate = new Date(ui.currentDate.getFullYear(), ui.currentDate.getMonth() - 1, 1);
+    render();
+  }
+  function goNext() {
+    if (ui.viewMode === "year") ui.currentDate = new Date(ui.currentDate.getFullYear() + 1, 0, 1);
+    else ui.currentDate = new Date(ui.currentDate.getFullYear(), ui.currentDate.getMonth() + 1, 1);
+    render();
+  }
+  function setViewMode(mode) { ui.viewMode = mode; render(); }
+  function jumpToMonth(year, month) {
+    ui.currentDate = new Date(year, month, 1);
+    ui.viewMode = "month";
+    render();
+  }
+
+  /* ================= day modal ================= */
+
+  function openDayModal(day) {
+    if (!ui.isAdmin) return;
+    var y = ui.currentDate.getFullYear(), m = ui.currentDate.getMonth();
+    ui.dayModal = { dateKey: y + "-" + m + "-" + day, day: day };
+    ui.newTitle = ""; ui.newDesc = ""; ui.newColor = "blue"; ui.newOnline = false;
+    ui.editingEventId = null;
+    render();
+  }
+  function closeDayModal() { ui.dayModal = null; render(); }
+
+  function addEvent() {
+    if (!ui.newTitle.trim() || !ui.dayModal) return;
+    var dateKey = ui.dayModal.dateKey;
+    var ev = { id: uid(), title: ui.newTitle.trim(), description: ui.newDesc.trim(), color: ui.newColor, isOnline: ui.newOnline };
+    var prevList = (state.events[dateKey] || []).slice();
+    commit(function () {
+      if (!state.events[dateKey]) state.events[dateKey] = [];
+      state.events[dateKey].push(ev);
+      ui.newTitle = ""; ui.newDesc = ""; ui.newOnline = false;
+    }, function () {
+      state.events[dateKey] = prevList;
+    });
+  }
+
+  function deleteEvent(id) {
+    if (!ui.dayModal) return;
+    var dateKey = ui.dayModal.dateKey;
+    var prevList = (state.events[dateKey] || []).slice();
+    commit(function () {
+      state.events[dateKey] = (state.events[dateKey] || []).filter(function (e) { return e.id !== id; });
+    }, function () {
+      state.events[dateKey] = prevList;
+    });
+  }
+
+  function startEditEvent(ev) {
+    ui.editingEventId = ev.id;
+    ui.editTitle = ev.title; ui.editDesc = ev.description || ""; ui.editColor = ev.color || "blue";
+    render();
+  }
+  function cancelEditEvent() { ui.editingEventId = null; render(); }
+
+  function saveEditEvent(id) {
+    if (!ui.dayModal) return;
+    var dateKey = ui.dayModal.dateKey;
+    var prevList = (state.events[dateKey] || []).map(function (e) { return Object.assign({}, e); });
+    commit(function () {
+      state.events[dateKey] = (state.events[dateKey] || []).map(function (e) {
+        if (e.id !== id) return e;
+        return Object.assign({}, e, { title: ui.editTitle.trim() || e.title, description: ui.editDesc.trim(), color: ui.editColor });
+      });
+      ui.editingEventId = null;
+    }, function () {
+      state.events[dateKey] = prevList;
+    });
+  }
+
+  /* ================= quote modal ================= */
+
+  function openQuoteModal() {
+    if (!ui.isAdmin) return;
+    var idx = ui.currentDate.getMonth();
+    ui.quoteDraft = Object.assign({}, state.quotes[idx]);
+    ui.quoteModal = true;
+    render();
+  }
+  function closeQuoteModal() { ui.quoteModal = false; render(); }
+  function saveQuote() {
+    var idx = ui.currentDate.getMonth();
+    var prev = Object.assign({}, state.quotes[idx]);
+    var draft = ui.quoteDraft;
+    commit(function () {
+      state.quotes[idx] = { text: draft.text, author: draft.author };
+      ui.quoteModal = false;
+    }, function () {
+      state.quotes[idx] = prev;
+    });
+  }
+
+  /* ================= rendering ================= */
+
+  var root = document.getElementById("app");
+
+  function render() {
+    var year = ui.currentDate.getFullYear();
+    var month = ui.currentDate.getMonth();
+
+    var html = '<div class="wrap"><div class="shell">';
+    html += renderAdminToggle();
+    html += renderHeader(year, month);
+    if (ui.viewMode === "month") {
+      html += renderWeekdayRow();
+      html += renderMonthGrid(year, month);
+    } else {
+      html += renderYearGrid(year);
+    }
+    html += "</div></div>";
+
+    root.innerHTML = html;
+
+    renderModals();
+    attachHandlers(year, month);
+  }
+
+  function renderAdminToggle() {
+    return '<button class="admin-toggle' + (ui.isAdmin ? ' on' : '') + '" id="admin-toggle-btn" type="button">' +
+      icon(ui.isAdmin ? "unlock" : "lock", 14) +
+      '<span>' + (ui.isAdmin ? "מצב עריכה (פעיל)" : "מצב צפייה") + '</span></button>';
+  }
+
+  function renderHeader(year, month) {
+    var quote = state.quotes[month] || { text: "", author: "" };
+    var titleLine = ui.viewMode === "month"
+      ? '<h1 class="header-title font-hand">' + escapeHtml(MONTH_NAMES[month]) + ' ' + year + '</h1>'
+      : '<h1 class="header-title font-hand">' + year + '</h1>';
+    var subLine = ui.viewMode === "month" ? '<p class="header-sub">' + HEBREW_MONTH_RANGES[month] + '</p>' : '';
+
+    var html = '<header class="header">';
+    html += '<div class="header-nav">';
+    html += '<div class="header-nav-row">';
+    html += '<button class="nav-btn" id="nav-prev" type="button" aria-label="הקודם">' + icon("chevronRight", 20) + '</button>';
+    html += '<div class="header-title-box">' + subLine + titleLine + '</div>';
+    html += '<button class="nav-btn" id="nav-next" type="button" aria-label="הבא">' + icon("chevronLeft", 20) + '</button>';
+    html += '</div>';
+    html += '<div class="view-toggle">';
+    html += '<button data-mode="month" class="' + (ui.viewMode === "month" ? "active" : "") + '" type="button">חודשי</button>';
+    html += '<button data-mode="year" class="' + (ui.viewMode === "year" ? "active" : "") + '" type="button">שנתי</button>';
+    html += '</div></div>';
+
+    html += '<div class="quote-banner">';
+    html += '<p class="quote-text">"' + escapeHtml(quote.text) + '"' +
+      (ui.isAdmin ? '<button class="quote-edit-btn" id="quote-edit-btn" type="button" aria-label="ערוך ציטוט">' + icon("edit", 15) + '</button>' : '') +
+      '</p>';
+    html += '<p class="quote-author">— ' + escapeHtml(quote.author) + '</p>';
+    html += '</div>';
+
+    html += '<div class="brand"><div class="brand-name">מעוף</div>' +
+      '<div class="brand-sub">מרכז לפיתוח ארגוני והכשרה<br>חטיבת ההון האנושי | הנהלת בתי המשפט</div></div>';
+
+    html += '</header>';
+    return html;
+  }
+
+  function renderWeekdayRow() {
+    var html = '<div class="weekday-row">';
+    var names = ["ראשון", "שני", "שלישי", "רביעי", "חמישי"];
+    for (var i = 0; i < 5; i++) html += '<div class="weekday-tag">' + names[i] + '</div>';
+    html += '</div>';
+    return html;
+  }
+
+  function renderMonthGrid(year, month) {
+    var daysInMonth = getDaysInMonth(year, month);
+    var today = new Date();
+    var cells = [];
+    var week = [null, null, null, null, null];
+    var flush = function () { cells.push(week); week = [null, null, null, null, null]; };
+
+    for (var d = 1; d <= daysInMonth; d++) {
+      var dow = new Date(year, month, d).getDay();
+      if (dow < 5) week[dow] = d;
+      if (dow === 4 || d === daysInMonth) flush();
+    }
+
+    var html = '<div class="grid">';
+    cells.forEach(function (week) {
+      week.forEach(function (day) {
+        if (!day) { html += '<div class="cell empty"></div>'; return; }
+        var dateKey = year + "-" + month + "-" + day;
+        var events = state.events[dateKey] || [];
+        var isToday = day === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+        var hebrew = getHebrewDate(day, month, year);
+
+        html += '<div class="cell' + (ui.isAdmin ? " clickable" : "") + (isToday ? " today" : "") + '" data-day="' + day + '">';
+        html += '<div class="cell-top"><span class="cell-day">' + day + '</span><span class="cell-hebrew">' + hebrew + '</span></div>';
+        html += '<div class="cell-events">';
+        events.forEach(function (ev) {
+          html += '<div class="pill" data-color="' + ev.color + '">';
+          if (ev.isOnline) html += icon("video", 11);
+          html += '<span>' + escapeHtml(ev.title) + '</span>';
+          if (!ev.description) html += '<span class="pill-dot"></span>';
+          if (ev.description) html += '<div class="tooltip">' + escapeHtml(ev.description) + '</div>';
+          html += '</div>';
+        });
+        html += '</div>';
+        if (ui.isAdmin) html += '<div class="cell-edit-hint">' + icon("edit", 14) + '</div>';
+        html += '</div>';
+      });
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function renderYearGrid(year) {
+    var today = new Date();
+    var html = '<div class="year-grid">';
+    for (var m = 0; m < 12; m++) {
+      var daysInMonth = getDaysInMonth(year, m);
+      html += '<div class="month-card" data-month="' + m + '">';
+      html += '<p class="month-card-title font-hand">' + MONTH_NAMES[m] + '</p>';
+      html += '<p class="month-card-range">' + HEBREW_MONTH_RANGES[m] + '</p>';
+      html += '<div class="mini-grid">';
+      for (var i = 0; i < 5; i++) html += '<div class="mini-label">' + WEEKDAY_LABELS[i] + '</div>';
+
+      var week = [null, null, null, null, null];
+      var weeks = [];
+      for (var d = 1; d <= daysInMonth; d++) {
+        var dow = new Date(year, m, d).getDay();
+        if (dow < 5) week[dow] = d;
+        if (dow === 4 || d === daysInMonth) { weeks.push(week); week = [null, null, null, null, null]; }
+      }
+      weeks.forEach(function (w) {
+        w.forEach(function (day) {
+          if (!day) { html += '<div class="mini-day blank">0</div>'; return; }
+          var dateKey = year + "-" + m + "-" + day;
+          var hasEvents = (state.events[dateKey] || []).length > 0;
+          var isToday = day === today.getDate() && m === today.getMonth() && year === today.getFullYear();
+          html += '<div class="mini-day' + (isToday ? " today" : (hasEvents ? " has-events" : "")) + '">' + day + '</div>';
+        });
+      });
+      html += '</div></div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  /* ---------- modals ---------- */
+
+  function renderModals() {
+    var host = document.getElementById("modal-host");
+    if (host) host.remove();
+    var wrap = document.createElement("div");
+    wrap.id = "modal-host";
+    var pieces = [];
+
+    if (ui.loginOpen) pieces.push(loginModalHtml());
+    if (ui.dayModal && ui.isAdmin) pieces.push(dayModalHtml());
+    if (ui.quoteModal && ui.isAdmin) pieces.push(quoteModalHtml());
+
+    wrap.innerHTML = pieces.join("");
+    document.body.appendChild(wrap);
+    attachModalHandlers();
+  }
+
+  function loginModalHtml() {
+    return '<div class="modal-backdrop" id="login-backdrop">' +
+      '<div class="modal" style="max-width:360px" role="dialog" aria-modal="true">' +
+      '<div class="modal-head"><h3>כניסה למצב עריכה</h3>' +
+      '<button class="icon-btn" id="login-close" type="button">' + icon("x", 20) + '</button></div>' +
+      '<div class="modal-body">' +
+      '<form id="login-form">' +
+      '<div class="field"><label class="field-label">סיסמה</label>' +
+      '<input type="password" id="login-password" autofocus autocomplete="off">' +
+      (ui.loginError ? '<p class="error-text">' + escapeHtml(ui.loginError) + '</p>' : '') +
+      '</div>' +
+      '<button class="btn btn-primary" type="submit">כניסה</button>' +
+      '</form></div></div></div>';
+  }
+
+  function dayModalHtml() {
+    var dateKey = ui.dayModal.dateKey;
+    var day = ui.dayModal.day;
+    var month = ui.currentDate.getMonth();
+    var events = state.events[dateKey] || [];
+
+    var swatches = COLORS.map(function (c) {
+      return '<button type="button" class="swatch' + (ui.newColor === c.name ? " selected" : "") +
+        '" data-color="' + c.name + '" data-target="new" style="background:var(--cat-' + c.name + ')" title="' + c.label + '"></button>';
+    }).join("");
+
+    var html = '<div class="modal-backdrop" id="day-backdrop">' +
+      '<div class="modal" role="dialog" aria-modal="true">' +
+      '<div class="modal-head"><h3>עריכת יום: ' + day + ' ב' + escapeHtml(MONTH_NAMES[month]) + '</h3>' +
+      '<button class="icon-btn" id="day-close" type="button">' + icon("x", 20) + '</button></div>' +
+      '<div class="modal-body">';
+
+    html += '<div class="field"><label class="field-label">הוסף אירוע חדש</label>' +
+      '<input type="text" id="new-title" placeholder="כותרת האירוע (למשל: ישיבת הנהלה)" value="' + escapeHtml(ui.newTitle) + '" style="margin-bottom:10px"></div>';
+    html += '<div class="field"><textarea id="new-desc" placeholder="תיאור האירוע או אג\'נדה...">' + escapeHtml(ui.newDesc) + '</textarea></div>';
+    html += '<div class="row-between" style="margin-bottom:14px">' +
+      '<div class="swatches">' + swatches + '</div>' +
+      '<label class="online-check">' + icon("video", 15) + '<input type="checkbox" id="new-online"' + (ui.newOnline ? " checked" : "") + '> מקוון</label>' +
+      '</div>';
+    html += '<button class="btn btn-primary" id="add-event-btn" type="button">' + icon("plus", 17) + ' הוסף ללוח</button>';
+
+    html += '<p class="existing-title">אירועים קיימים</p>';
+    if (!events.length) {
+      html += '<p class="empty-note">אין אירועים ביום זה</p>';
+    } else {
+      events.forEach(function (ev) {
+        html += '<div class="event-row" data-id="' + ev.id + '">';
+        if (ui.editingEventId === ev.id) {
+          var editSwatches = COLORS.map(function (c) {
+            return '<button type="button" class="edit-swatch' + (ui.editColor === c.name ? " selected" : "") +
+              '" data-color="' + c.name + '" data-target="edit" style="background:var(--cat-' + c.name + ')" title="' + c.label + '"></button>';
+          }).join("");
+          html += '<input type="text" id="edit-title" value="' + escapeHtml(ui.editTitle) + '" style="margin-bottom:8px">';
+          html += '<textarea id="edit-desc" style="min-height:56px">' + escapeHtml(ui.editDesc) + '</textarea>';
+          html += '<div class="edit-swatches">' + editSwatches + '</div>';
+          html += '<div class="edit-actions">' +
+            '<button class="cancel" id="edit-cancel" type="button">ביטול</button>' +
+            '<button class="save" id="edit-save" data-id="' + ev.id + '" type="button">שמור</button></div>';
+        } else {
+          html += '<div class="event-row-head">' +
+            '<div class="event-row-title"><span class="dot" style="background:var(--cat-' + ev.color + ')"></span>' +
+            (ev.isOnline ? icon("video", 14) : "") +
+            '<span class="txt">' + escapeHtml(ev.title) + '</span></div>' +
+            '<div class="event-row-actions">' +
+            '<button class="ev-edit" data-id="' + ev.id + '" type="button" title="ערוך">' + icon("edit", 16) + '</button>' +
+            '<button class="ev-delete" data-id="' + ev.id + '" type="button" title="מחק">' + icon("trash", 16) + '</button>' +
+            '</div></div>';
+          if (ev.description) html += '<p class="event-row-desc">' + escapeHtml(ev.description) + '</p>';
+        }
+        html += '</div>';
+      });
+    }
+
+    html += '</div><div class="modal-foot"><button class="link-btn" id="day-done" type="button">סיום וסגירה</button></div></div></div>';
+    return html;
+  }
+
+  function quoteModalHtml() {
+    var q = ui.quoteDraft || { text: "", author: "" };
+    return '<div class="modal-backdrop" id="quote-backdrop">' +
+      '<div class="modal" style="max-width:400px" role="dialog" aria-modal="true">' +
+      '<div class="modal-head"><h3>עריכת ציטוט חודשי</h3>' +
+      '<button class="icon-btn" id="quote-close" type="button">' + icon("x", 20) + '</button></div>' +
+      '<div class="modal-body">' +
+      '<div class="field"><label class="field-label">טקסט הציטוט</label><textarea id="quote-text">' + escapeHtml(q.text) + '</textarea></div>' +
+      '<div class="field"><label class="field-label">מחבר</label><input type="text" id="quote-author" value="' + escapeHtml(q.author) + '"></div>' +
+      '<button class="btn btn-primary" id="quote-save" type="button">' + icon("save", 17) + ' שמור שינויים</button>' +
+      '</div></div></div>';
+  }
+
+  /* ================= event wiring ================= */
+
+  function attachHandlers(year, month) {
+    var adminBtn = document.getElementById("admin-toggle-btn");
+    if (adminBtn) adminBtn.addEventListener("click", toggleAdmin);
+
+    var prevBtn = document.getElementById("nav-prev");
+    var nextBtn = document.getElementById("nav-next");
+    if (prevBtn) prevBtn.addEventListener("click", goPrev);
+    if (nextBtn) nextBtn.addEventListener("click", goNext);
+
+    document.querySelectorAll(".view-toggle button").forEach(function (btn) {
+      btn.addEventListener("click", function () { setViewMode(btn.getAttribute("data-mode")); });
+    });
+
+    var quoteBtn = document.getElementById("quote-edit-btn");
+    if (quoteBtn) quoteBtn.addEventListener("click", openQuoteModal);
+
+    document.querySelectorAll(".cell[data-day]").forEach(function (cell) {
+      cell.addEventListener("click", function () { openDayModal(parseInt(cell.getAttribute("data-day"), 10)); });
+    });
+
+    document.querySelectorAll(".month-card[data-month]").forEach(function (card) {
+      card.addEventListener("click", function () { jumpToMonth(year, parseInt(card.getAttribute("data-month"), 10)); });
+    });
+  }
+
+  function attachModalHandlers() {
+    var loginClose = document.getElementById("login-close");
+    var loginBackdrop = document.getElementById("login-backdrop");
+    var loginForm = document.getElementById("login-form");
+    if (loginClose) loginClose.addEventListener("click", function () { ui.loginOpen = false; render(); });
+    if (loginBackdrop) loginBackdrop.addEventListener("click", function (e) { if (e.target === loginBackdrop) { ui.loginOpen = false; render(); } });
+    if (loginForm) loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      submitLogin(document.getElementById("login-password").value);
+    });
+
+    var dayClose = document.getElementById("day-close");
+    var dayDone = document.getElementById("day-done");
+    var dayBackdrop = document.getElementById("day-backdrop");
+    if (dayClose) dayClose.addEventListener("click", closeDayModal);
+    if (dayDone) dayDone.addEventListener("click", closeDayModal);
+    if (dayBackdrop) dayBackdrop.addEventListener("click", function (e) { if (e.target === dayBackdrop) closeDayModal(); });
+
+    var newTitleInput = document.getElementById("new-title");
+    var newDescInput = document.getElementById("new-desc");
+    var newOnlineInput = document.getElementById("new-online");
+    if (newTitleInput) newTitleInput.addEventListener("input", function () { ui.newTitle = newTitleInput.value; });
+    if (newDescInput) newDescInput.addEventListener("input", function () { ui.newDesc = newDescInput.value; });
+    if (newOnlineInput) newOnlineInput.addEventListener("change", function () { ui.newOnline = newOnlineInput.checked; });
+
+    document.querySelectorAll('.swatch[data-target="new"]').forEach(function (btn) {
+      btn.addEventListener("click", function () { ui.newColor = btn.getAttribute("data-color"); render(); });
+    });
+    var addBtn = document.getElementById("add-event-btn");
+    if (addBtn) addBtn.addEventListener("click", addEvent);
+
+    document.querySelectorAll(".ev-edit").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var id = btn.getAttribute("data-id");
+        var ev = (state.events[ui.dayModal.dateKey] || []).find(function (e) { return e.id === id; });
+        if (ev) startEditEvent(ev);
+      });
+    });
+    document.querySelectorAll(".ev-delete").forEach(function (btn) {
+      btn.addEventListener("click", function () { deleteEvent(btn.getAttribute("data-id")); });
+    });
+
+    var editTitleInput = document.getElementById("edit-title");
+    var editDescInput = document.getElementById("edit-desc");
+    if (editTitleInput) editTitleInput.addEventListener("input", function () { ui.editTitle = editTitleInput.value; });
+    if (editDescInput) editDescInput.addEventListener("input", function () { ui.editDesc = editDescInput.value; });
+    document.querySelectorAll('.edit-swatch[data-target="edit"]').forEach(function (btn) {
+      btn.addEventListener("click", function () { ui.editColor = btn.getAttribute("data-color"); render(); });
+    });
+    var editCancel = document.getElementById("edit-cancel");
+    var editSave = document.getElementById("edit-save");
+    if (editCancel) editCancel.addEventListener("click", cancelEditEvent);
+    if (editSave) editSave.addEventListener("click", function () { saveEditEvent(editSave.getAttribute("data-id")); });
+
+    var quoteClose = document.getElementById("quote-close");
+    var quoteBackdrop = document.getElementById("quote-backdrop");
+    var quoteTextInput = document.getElementById("quote-text");
+    var quoteAuthorInput = document.getElementById("quote-author");
+    var quoteSaveBtn = document.getElementById("quote-save");
+    if (quoteClose) quoteClose.addEventListener("click", closeQuoteModal);
+    if (quoteBackdrop) quoteBackdrop.addEventListener("click", function (e) { if (e.target === quoteBackdrop) closeQuoteModal(); });
+    if (quoteTextInput) quoteTextInput.addEventListener("input", function () { ui.quoteDraft.text = quoteTextInput.value; });
+    if (quoteAuthorInput) quoteAuthorInput.addEventListener("input", function () { ui.quoteDraft.author = quoteAuthorInput.value; });
+    if (quoteSaveBtn) quoteSaveBtn.addEventListener("click", saveQuote);
+  }
+
+  /* ================= boot ================= */
+
+  render();
+})();
+</script>
+</body>
+</html>
