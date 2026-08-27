@@ -590,6 +590,47 @@
     toastTimer = setTimeout(function () { t.remove(); }, 3200);
   }
 
+  /* ================= persistence via /api/events (Redis on Vercel) ================= */
+
+  // Used when the page is NOT running inside the Claude artifact host
+  // (i.e. the GitHub/Vercel deployment). Saves the whole `state` object to
+  // a shared Redis store via a serverless API route, so every viewer sees
+  // the same data instead of each browser keeping its own local copy.
+  function saveViaApi(revert) {
+    fetch("/api/events", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-edit-key": ADMIN_PASSWORD },
+      body: JSON.stringify(state),
+    })
+      .then(function (r) {
+        if (!r.ok) return r.json().then(function (j) { throw new Error((j && j.error) || ("שגיאה " + r.status)); });
+        return r.json();
+      })
+      .catch(function (err) {
+        if (revert) revert();
+        render();
+        showToast("השמירה נכשלה: " + (err && err.message ? err.message : "שגיאה לא צפויה"), true);
+      });
+  }
+
+  // Pulls the latest shared state from the server on load, so a viewer who
+  // opens the static site sees whatever was last saved by anyone (not just
+  // the events baked into this HTML file at deploy time).
+  function loadRemoteStateAndRerender() {
+    if (window.claude && typeof window.claude.use === "function") return; // artifact host has its own sync
+    fetch("/api/events")
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (payload) {
+        if (payload && payload.ok && payload.data) {
+          state = payload.data;
+          render();
+        }
+      })
+      .catch(function () {
+        /* offline or API not deployed yet — keep showing the built-in data */
+      });
+  }
+
   // Applies a mutation to `state`, tries to persist it, and re-renders.
   // mutate() returns nothing but changes `state` in place.
   // revert() restores state if persistence is rejected outright.
@@ -598,7 +639,7 @@
     render();
 
     if (!window.claude || typeof window.claude.use !== "function") {
-      showToast("תצוגה זו אינה תומכת בשמירה — השינוי מוצג רק כאן", true);
+      saveViaApi(revert);
       return;
     }
 
@@ -1109,6 +1150,7 @@
   /* ================= boot ================= */
 
   render();
+  loadRemoteStateAndRerender();
 })();
 </script>
 </body>
