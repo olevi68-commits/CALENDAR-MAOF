@@ -431,26 +431,40 @@
     { name: "gold", label: "זהב (חג)" }
   ];
 
+  // מיפוי תאריכים עבריים — אומת מול Hebcal ומול לוח עברי של הדפדפן (Intl)
+  // startDay = היום העברי ב-1 לחודש הלועזי; splitDay = היום הלועזי שבו מתחיל החודש העברי הבא (99 = אין מעבר)
   var HEBREW_DATES_MAP = {
-    "1-2026": { startDay: 11, startMonth: "טבת", splitDay: 20, nextMonth: "שבט" },
-    "2-2026": { startDay: 13, startMonth: "שבט", splitDay: 18, nextMonth: "אדר" },
-    "3-2026": { startDay: 11, startMonth: "אדר", splitDay: 19, nextMonth: "ניסן" },
-    "4-2026": { startDay: 13, startMonth: "ניסן", splitDay: 18, nextMonth: "אייר" },
-    "5-2026": { startDay: 13, startMonth: "אייר", splitDay: 18, nextMonth: "סיוון" },
-    "6-2026": { startDay: 14, startMonth: "סיוון", splitDay: 17, nextMonth: "תמוז" },
-    "7-2026": { startDay: 15, startMonth: "תמוז", splitDay: 16, nextMonth: "אב" },
-    "8-2026": { startDay: 17, startMonth: "אב", splitDay: 15, nextMonth: "אלול" },
-    "9-2026": { startDay: 18, startMonth: "אלול", splitDay: 12, nextMonth: "תשרי" },
-    "10-2026": { startDay: 20, startMonth: "תשרי", splitDay: 12, nextMonth: "חשוון" },
-    "11-2026": { startDay: 21, startMonth: "חשוון", splitDay: 11, nextMonth: "כסלו" },
-    "12-2026": { startDay: 21, startMonth: "כסלו", splitDay: 11, nextMonth: "טבת" }
+    "1-2026": { startDay: 12, startMonth: "טבת", splitDay: 19, nextMonth: "שבט", yearLabel: 'תשפ"ו' },
+    "2-2026": { startDay: 14, startMonth: "שבט", splitDay: 18, nextMonth: "אדר", yearLabel: 'תשפ"ו' },
+    "3-2026": { startDay: 12, startMonth: "אדר", splitDay: 19, nextMonth: "ניסן", yearLabel: 'תשפ"ו' },
+    "4-2026": { startDay: 14, startMonth: "ניסן", splitDay: 18, nextMonth: "אייר", yearLabel: 'תשפ"ו' },
+    "5-2026": { startDay: 14, startMonth: "אייר", splitDay: 17, nextMonth: "סיוון", yearLabel: 'תשפ"ו' },
+    "6-2026": { startDay: 16, startMonth: "סיוון", splitDay: 16, nextMonth: "תמוז", yearLabel: 'תשפ"ו' },
+    "7-2026": { startDay: 16, startMonth: "תמוז", splitDay: 15, nextMonth: "אב", yearLabel: 'תשפ"ו' },
+    "8-2026": { startDay: 18, startMonth: "אב", splitDay: 14, nextMonth: "אלול", yearLabel: 'תשפ"ו' },
+    "9-2026": { startDay: 19, startMonth: "אלול", splitDay: 12, nextMonth: "תשרי", yearLabel: 'תשפ"ז' },
+    "10-2026": { startDay: 20, startMonth: "תשרי", splitDay: 12, nextMonth: "חשוון", yearLabel: 'תשפ"ז' },
+    "11-2026": { startDay: 21, startMonth: "חשוון", splitDay: 11, nextMonth: "כסלו", yearLabel: 'תשפ"ז' },
+    "12-2026": { startDay: 21, startMonth: "כסלו", splitDay: 11, nextMonth: "טבת", yearLabel: 'תשפ"ז' },
+    "1-2027": { startDay: 22, startMonth: "טבת", splitDay: 9, nextMonth: "שבט", yearLabel: 'תשפ"ז' },
+    "2-2027": { startDay: 24, startMonth: "שבט", splitDay: 8, nextMonth: "אדר א׳", yearLabel: 'תשפ"ז' },
+    "3-2027": { startDay: 22, startMonth: "אדר א׳", splitDay: 10, nextMonth: "אדר ב׳", yearLabel: 'תשפ"ז' },
+    "4-2027": { startDay: 23, startMonth: "אדר ב׳", splitDay: 8, nextMonth: "ניסן", yearLabel: 'תשפ"ז' },
+    "5-2027": { startDay: 24, startMonth: "ניסן", splitDay: 8, nextMonth: "אייר", yearLabel: 'תשפ"ז' },
+    "6-2027": { startDay: 25, startMonth: "אייר", splitDay: 6, nextMonth: "סיוון", yearLabel: 'תשפ"ז' },
+    "7-2027": { startDay: 26, startMonth: "סיוון", splitDay: 6, nextMonth: "תמוז", yearLabel: 'תשפ"ז' },
+    "8-2027": { startDay: 27, startMonth: "תמוז", splitDay: 4, nextMonth: "אב", yearLabel: 'תשפ"ז' },
+    "9-2027": { startDay: 29, startMonth: "אב", splitDay: 3, nextMonth: "אלול", yearLabel: 'תשפ"ז' },
+    "10-2027": { startDay: 29, startMonth: "אלול", splitDay: 2, nextMonth: "תשרי", yearLabel: 'תשפ"ח' },
+    "11-2027": { startDay: 1, startMonth: "חשוון", splitDay: 99, nextMonth: "", yearLabel: 'תשפ"ח' },
+    "12-2027": { startDay: 1, startMonth: "כסלו", splitDay: 31, nextMonth: "טבת", yearLabel: 'תשפ"ח' }
   };
 
-  var HEBREW_MONTH_RANGES = [
-    'טבת-שבט תשפ"ו', 'שבט-אדר תשפ"ו', 'אדר-ניסן תשפ"ו', 'ניסן-אייר תשפ"ו',
-    'אייר-סיוון תשפ"ו', 'סיוון-תמוז תשפ"ו', 'תמוז-אב תשפ"ו', 'אב-אלול תשפ"ו',
-    'אלול-תשרי תשפ"ז', 'תשרי-חשוון תשפ"ז', 'חשוון-כסלו תשפ"ז', 'כסלו-טבת תשפ"ז'
-  ];
+  function hebrewMonthRange(month, year) {
+    var c = HEBREW_DATES_MAP[(month + 1) + "-" + year];
+    if (!c) return "";
+    return c.startMonth + (c.nextMonth ? "-" + c.nextMonth : "") + " " + c.yearLabel;
+  }
 
   function gematria(num) {
     if (num === 15) return 'ט"ו';
@@ -517,7 +531,7 @@
   var state = JSON.parse(document.getElementById("state-data").textContent);
 
   var ui = {
-    currentDate: new Date(2026, 7, 1),
+    currentDate: (function () { var t = new Date(); return new Date(t.getFullYear(), t.getMonth(), 1); })(), // נפתח תמיד על החודש הנוכחי
     viewMode: "month",
     isAdmin: false,
     dayModal: null,       // { dateKey, day }
@@ -835,7 +849,7 @@
     var titleLine = ui.viewMode === "month"
       ? '<h1 class="header-title font-hand">' + escapeHtml(MONTH_NAMES[month]) + ' ' + year + '</h1>'
       : '<h1 class="header-title font-hand">' + year + '</h1>';
-    var subLine = ui.viewMode === "month" ? '<p class="header-sub">' + HEBREW_MONTH_RANGES[month] + '</p>' : '';
+    var subLine = ui.viewMode === "month" ? '<p class="header-sub">' + hebrewMonthRange(month, year) + '</p>' : '';
 
     var html = '<header class="header">';
     html += '<div class="header-nav">';
@@ -920,7 +934,7 @@
       var daysInMonth = getDaysInMonth(year, m);
       html += '<div class="month-card" data-month="' + m + '">';
       html += '<p class="month-card-title font-hand">' + MONTH_NAMES[m] + '</p>';
-      html += '<p class="month-card-range">' + HEBREW_MONTH_RANGES[m] + '</p>';
+      html += '<p class="month-card-range">' + hebrewMonthRange(m, year) + '</p>';
       html += '<div class="mini-grid">';
       for (var i = 0; i < 5; i++) html += '<div class="mini-label">' + WEEKDAY_LABELS[i] + '</div>';
 
